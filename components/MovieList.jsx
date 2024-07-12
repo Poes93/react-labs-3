@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import SearchBar from './SearchBar';
 import Filter from './Filter';
+import Pagination from './Pagination';
 import './MoviesList.css';
 
 const MoviesList = () => {
@@ -9,20 +10,26 @@ const MoviesList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [filters, setFilters] = useState({});
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         fetchMovies();
-    }, []);
+    }, [currentPage, filters, query]);
 
     const fetchMovies = async () => {
         try {
-            const response = await fetch('https://graph.imdbapi.dev/v1/movies'); // Replace with your API endpoint
+            setLoading(true);
+            const response = await fetch(`https://graph.imdbapi.dev/v1/movies?page=${currentPage}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch movies');
             }
             const data = await response.json();
-            setMovies(data);
-            setSearchResults(data);
+            setMovies(data.movies);
+            setSearchResults(data.movies);
+            setTotalPages(data.totalPages);
             setLoading(false);
         } catch (error) {
             setError(error.message);
@@ -30,28 +37,18 @@ const MoviesList = () => {
         }
     };
 
-    const handleSearch = async (query) => {
-        try {
-            const response = await fetch(`https://graph.imdbapi.dev/v1/search?query=${query}`);
-            if (!response.ok) {
-                throw new Error('Failed to search movies');
-            }
-            const data = await response.json();
-            setSearchResults(data);
-        } catch (error) {
-            setError(error.message);
-        }
+    const handleSearch = async (searchQuery) => {
+        setQuery(searchQuery);
+        setCurrentPage(1); // Reset to first page on new search
     };
 
-    const handleFilter = ({ genre, year, rating }) => {
-        const filteredMovies = movies.filter(movie => {
-            return (
-                (genre ? movie.genre.includes(genre) : true) &&
-                (year ? movie.releaseDate.includes(year) : true) &&
-                (rating ? movie.rating >= rating : true)
-            );
-        });
-        setSearchResults(filteredMovies);
+    const handleFilter = (filterValues) => {
+        setFilters(filterValues);
+        setCurrentPage(1); // Reset to first page on new filters
+    };
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
     };
 
     if (loading) return <div>Loading...</div>;
@@ -66,6 +63,7 @@ const MoviesList = () => {
                     <MovieCard key={movie.id} movie={movie} />
                 ))}
             </div>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
     );
 };
