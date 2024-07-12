@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import SearchBar from './SearchBar';
+import Filter from './Filter';
 import './MoviesList.css';
 
 const MoviesList = () => {
@@ -42,12 +43,24 @@ const MoviesList = () => {
         }
     };
 
+    const handleFilter = ({ genre, year, rating }) => {
+        const filteredMovies = movies.filter(movie => {
+            return (
+                (genre ? movie.genre.includes(genre) : true) &&
+                (year ? movie.releaseDate.includes(year) : true) &&
+                (rating ? movie.rating >= rating : true)
+            );
+        });
+        setSearchResults(filteredMovies);
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="movies-list-container">
             <SearchBar onSearch={handleSearch} />
+            <Filter onFilter={handleFilter} />
             <div className="movies-list">
                 {searchResults.map(movie => (
                     <MovieCard key={movie.id} movie={movie} />
