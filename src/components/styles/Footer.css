@@ -1,0 +1,29 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-links a,
+  .footer-social-media a {
+    color: #fff;
+    margin: 0 0.5rem;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover,
+  .footer-social-media a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-copy {
+    margin-top: 1rem;
+  }
+  
