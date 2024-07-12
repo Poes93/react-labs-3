@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Filter.css';
+import './styles/Filter.css';
 
 const Filter = ({ onFilter }) => {
     const [genre, setGenre] = useState('');

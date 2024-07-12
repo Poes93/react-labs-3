@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import MoviesList from './components/MoviesList';
-import MovieDetail from './components/MovieDetail';
-import About from './pages/About';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import Home from './Home';
+import MoviesList from '../components/MoviesList';
+import MovieDetail from '../components/MovieDetail';
+import About from './About';
 
 function App() {
   return (

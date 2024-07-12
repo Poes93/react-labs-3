@@ -3,7 +3,7 @@ import MovieCard from './MovieCard';
 import SearchBar from './SearchBar';
 import Filter from './Filter';
 import Pagination from './Pagination';
-import './MoviesList.css';
+import './styles/MovieList.css';
 
 const MoviesList = () => {
     const [movies, setMovies] = useState([]);
