@@ -1,0 +1,36 @@
+.movie-detail {
+    display: flex;
+    align-items: flex-start;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+  }
+  
+  .movie-detail-img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .movie-detail-content {
+    margin-left: 2rem;
+  }
+  
+  .movie-detail-title {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+  }
+  
+  .movie-detail-release-date {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+  .movie-detail-description {
+    color: #333;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
